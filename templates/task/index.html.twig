@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список задач{% endblock %}
+
+{% block body %}
+    <style>
+        .task-wrapper {
+            margin: 2em auto;
+            max-width: 900px;
+            width: 95%;
+        }
+
+        .task-wrapper h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .task-wrapper .no-tasks {
+            text-align: center;
+            font-size: 1.2em;
+            color: #888;
+        }
+
+        .task-wrapper .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .task-item a {
+            font-size: 1.1em;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .task-item a:hover {
+            text-decoration: underline;
+        }
+
+        .advertisement {
+            position: fixed;
+            top: 20px;
+            left: -300px;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            z-index: 9999;
+            animation: moveAdvertisement 10s linear infinite;
+        }
+
+        @keyframes moveAdvertisement {
+            0% {
+                left: -300px;
+            }
+            50% {
+                left: calc(100% - 300px);
+            }
+            100% {
+                left: -300px;
+            }
+        }
+    </style>
+    <div class="advertisement">
+        Привет компания Noveo!
+    </div>
+
+    <div class="task-wrapper">
+        <h1>Листы задач</h1>
+
+        <a href="{{ path('task_new') }}" class="btn btn-primary mb-3">Создать новую задачу</a>
+
+        {% if tasks is empty %}
+            <p class="no-tasks">Задачи не найдены.</p>
+        {% else %}
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название задачи</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col" colspan="2" class="text-center">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <th scope="row">{{ task.id }}</th>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>
+                            <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn btn-sm btn-warning">Редактировать</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('task_delete', {'id': task.id}) }}"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this task?')">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

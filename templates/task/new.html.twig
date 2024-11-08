@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создавать задачу{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center text-success mb-4">Создавать</h1>
+
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {{ form_start(form) }}
+
+                <table class="table table-bordered table-striped">
+                    <tbody>
+
+                    <tr>
+                        <td><label for="{{ form.name.vars.id }}" class="form-label">Название задачи</label></td>
+                        <td>{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+
+
+                    <tr>
+                        <td><label for="{{ form.description.vars.id }}" class="form-label">Описание</label></td>
+                        <td>{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-primary btn-block mt-4">Сохранить</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
